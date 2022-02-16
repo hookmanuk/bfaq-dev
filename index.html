@@ -21,7 +21,7 @@
         </div>
       </div>
       <div id="unity-footer">        
-        <button id="entervr" value="Enter VR" disabled>VR</button>                
+        <button id="entervr" value="Enter VR" style="display: none">VR</button>                
       </div>
     </div>
     <script>
@@ -94,7 +94,7 @@
       let enterVRButton = document.getElementById('entervr');
       
       document.addEventListener('onVRSupportedCheck', function (event) {
-        enterVRButton.disabled = !event.detail.supported;
+        enterVRButton.style.display = (!event.detail.supported ? "none" : "block");
       }, false);
       
       enterVRButton.addEventListener('click', function (event) {
