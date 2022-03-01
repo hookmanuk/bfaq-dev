@@ -36,7 +36,7 @@
     <type fullname="HighlightPlus.HighlightTrigger" preserve="all" />
     <type fullname="HighlightPlus.GlowPassData" preserve="nothing" serialized="true" />
   </assembly>
-  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+  <assembly fullname="AssemblyDefs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="BitFins.Aquarium.Decoration" preserve="all" />
     <type fullname="BitFins.Aquarium.Fish" preserve="all" />
     <type fullname="BitFins.Aquarium.ExternalDecoration" preserve="all" />
