@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,21 +8,24 @@
     <meta name="description" content="">
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container">
-      <div id="unity-canvas-container" style="width: 100%; height: 100%;">
-        <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
-      </div>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+</head>
+<body>
+    <div id="unity-container" style="background:black;">
+        <div id="unity-canvas-container" style="width: 100%; height: 100%;">
+            <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
         </div>
-      </div>
-      <div id="unity-footer">        
-        <button id="entervr" value="Enter VR" style="display: none">VR</button>                
-      </div>
+        <div id="unity-loading-bar" style="background:black;">
+            <!--<div id="unity-logo"></div>-->
+            <video id="intro" autoplay="autoplay" controls muted width="1280" height="720">
+                <source src="TemplateData/Everon.mp4" type="video/mp4">
+            </video>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-footer">
+            <button id="entervr" value="Enter VR" style="display: none">VR</button>
+        </div>
     </div>
     <script>
         function traceMethodCalls(obj) {
@@ -36,8 +39,8 @@
                         if (urlParams.get('consolealerts') && args[0] != undefined) {
                             alert(args[0]);
                         }
-                        
-                        
+
+
 
                         // call origin method
                         return originMethod.apply(this, args);
@@ -48,58 +51,75 @@
 
         console = traceMethodCalls(console);
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/bfaq-dev.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/bfaq-dev.data.unityweb",
-        frameworkUrl: buildUrl + "/bfaq-dev.framework.js.unityweb",
-        codeUrl: buildUrl + "/bfaq-dev.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "bitfins-aquarium-xr",
-        productVersion: "0.1",
-      };
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/bfaq-dev.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/bfaq-dev.data.unityweb",
+            frameworkUrl: buildUrl + "/bfaq-dev.framework.js.unityweb",
+            codeUrl: buildUrl + "/bfaq-dev.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "bitfins-aquarium-xr",
+            productVersion: "0.1",
+        };
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var canvasContainer = document.querySelector("#unity-canvas-container");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var unityInstance = null;
-      
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var canvasContainer = document.querySelector("#unity-canvas-container");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector("#unity-progress-bar-full");
+        var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+        var unityInstance = null;
 
-      loadingBar.style.display = "block";
 
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((instance) => {
-          unityInstance = instance;
-          loadingBar.style.display = "none";
-          if (fullscreenButton)
-          {
-            fullscreenButton.onclick = () => {
-              unityInstance.SetFullscreen(1);
-            };
-          }
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
-      
-      let enterVRButton = document.getElementById('entervr');
-      
-      document.addEventListener('onVRSupportedCheck', function (event) {
-        enterVRButton.style.display = (!event.detail.supported ? "none" : "block");
-      }, false);
-      
-      enterVRButton.addEventListener('click', function (event) {
-        unityInstance.Module.WebXR.toggleVR();
-      }, false);
+        loadingBar.style.display = "block";
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((instance) => {
+                document.getElementById('unity-canvas-container').style.display = "none";
+                unityInstance = instance;
+                //alert('wait!');
+                //loadingBar.style.display = "none";
+                if (fullscreenButton) {
+                    fullscreenButton.onclick = () => {
+                        unityInstance.SetFullscreen(1);
+                    };
+                }
+
+                document.body.addEventListener('click', startAquarium, true);
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+
+        var introvid = document.getElementById("intro");
+        introvid.onended = startAquarium;
+
+        let enterVRButton = document.getElementById('entervr');
+
+        document.addEventListener('onVRSupportedCheck', function (event) {
+            enterVRButton.style.display = (!event.detail.supported ? "none" : "block");
+        }, false);
+
+        enterVRButton.addEventListener('click', function (event) {
+            unityInstance.Module.WebXR.toggleVR();
+        }, false);
+
+        function startAquarium() {
+            loadingBar.style.display = "none";
+            document.body.style.cursor = "wait";
+
+            setTimeout(function () {
+                document.getElementById('unity-canvas-container').style.display = "block";
+                unityInstance.SendMessage('Global', 'StartApp');
+                document.body.style.cursor = "default";
+            }, 100);
+        }
     </script>
-  </body>
+</body>
 </html>
