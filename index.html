@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="unity-container" style="background:black;">
-        <div id="unity-canvas-container" style="width: 100%; height: 100%; display: none;">
+        <div id="unity-canvas-container" style="width: 100%; height: 100%; display:none;">
             <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
         </div>
         <div id="unity-loading-bar" style="background:black;">
@@ -68,6 +68,7 @@
         var canvasContainer = document.querySelector("#unity-canvas-container");
         var loadingBar = document.querySelector("#unity-loading-bar");
         var progressBarFull = document.querySelector("#unity-progress-bar-full");
+        var progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
         var fullscreenButton = document.querySelector("#unity-fullscreen-button");
         var unityInstance = null;
 
@@ -81,6 +82,8 @@
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((instance) => {
                 document.getElementById('unity-canvas-container').style.display = "none";
+                progressBarFull.style.display = "none";
+                progressBarEmpty.style.background = "#000";
                 unityInstance = instance;
                 //alert('wait!');
                 //loadingBar.style.display = "none";
