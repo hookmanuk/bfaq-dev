@@ -100,6 +100,8 @@
         var introvid = document.getElementById("intro");
         introvid.onended = startAquarium;
 
+        var started = false;
+
         let enterVRButton = document.getElementById('entervr');
 
         document.addEventListener('onVRSupportedCheck', function (event) {
@@ -111,14 +113,17 @@
         }, false);
 
         function startAquarium() {
-            loadingBar.style.display = "none";
-            document.body.style.cursor = "wait";
+            if (!started) {
+                loadingBar.style.display = "none";
+                document.body.style.cursor = "wait";
+                started = true;
 
-            setTimeout(function () {
-                document.getElementById('unity-canvas-container').style.display = "block";
-                unityInstance.SendMessage('Global', 'StartApp');
-                document.body.style.cursor = "default";
-            }, 100);
+                setTimeout(function () {
+                    document.getElementById('unity-canvas-container').style.display = "block";
+                    unityInstance.SendMessage('Global', 'StartApp');
+                    document.body.style.cursor = "default";
+                }, 100);
+            }
         }
     </script>
 </body>
