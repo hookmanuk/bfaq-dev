@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="TemplateData/style.css">
 </head>
 <body>
-    <div id="unity-container" style="background:black;">
+    <div id="unity-container" style="background: black; line-height: 0;">
         <div id="unity-canvas-container" style="width: 100%; height: 100%; display:none;">
             <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
         </div>
         <div id="unity-loading-bar" style="background:black;">
             <!--<div id="unity-logo"></div>-->
-            <video id="intro" autoplay="autoplay" controls muted width="1280" height="720">
+            <video id="intro" autoplay="autoplay" muted width="1280" height="720">
                 <source src="TemplateData/everon.mp4" type="video/mp4">
             </video>
             <div id="unity-progress-bar-empty">
@@ -27,6 +27,7 @@
             <button id="entervr" value="Enter VR" style="display: none">VR</button>
         </div>
     </div>
+	    <script src="web3/index.js"></script>
     <script>
         function traceMethodCalls(obj) {
             return new Proxy(obj, {
@@ -121,11 +122,18 @@
                 document.body.style.cursor = "wait";
                 started = true;
 
-                setTimeout(function () {
-                    document.getElementById('unity-canvas-container').style.display = "block";
-                    unityInstance.SendMessage('Global', 'StartApp');
-                    document.body.style.cursor = "default";
-                }, 100);
+                setTimeout(sendunitystartmessage, 100);                                
+            }
+        }
+
+        function sendunitystartmessage() {
+            if (unityInstance == null) {
+                setTimeout(sendunitystartmessage, 100);
+            }
+            else {
+                document.getElementById('unity-canvas-container').style.display = "block";
+                unityInstance.SendMessage('Global', 'StartApp');
+                document.body.style.cursor = "default";
             }
         }
     </script>
