@@ -19,16 +19,16 @@
     <type fullname="UnityEngine.Mesh" preserve="all" />
     <type fullname="UnityEngine.Shader" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
-    <type fullname="UnityEngine.LODGroup" preserve="all" />
     <type fullname="UnityEngine.SkinnedMeshRenderer" preserve="all" />
     <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.LODGroup" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Rigidbody" preserve="all" />
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
     <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
-    <type fullname="UnityEngine.MeshCollider" preserve="all" />
     <type fullname="UnityEngine.SphereCollider" preserve="all" />
+    <type fullname="UnityEngine.MeshCollider" preserve="all" />
   </assembly>
   <assembly fullname="HighlightPlus, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="HighlightPlus.HighlightProfile" preserve="all" />
@@ -42,14 +42,13 @@
     <type fullname="BitFins.Aquarium.ExternalDecoration" preserve="all" />
     <type fullname="ProGifPlayerRenderer" preserve="all" />
   </assembly>
-  <assembly fullname="LowPolyUnderwaterPack, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="LowPolyUnderwaterPack.PlantCoralAnimation" preserve="all" />
-    <type fullname="LowPolyUnderwaterPack.SingleFishAI" preserve="all" />
-  </assembly>
   <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.AnimationClip" preserve="all" />
     <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
     <type fullname="UnityEngine.Animator" preserve="all" />
+  </assembly>
+  <assembly fullname="LowPolyUnderwaterPack, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="LowPolyUnderwaterPack.SingleFishAI" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.VideoModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Video.VideoPlayer" preserve="all" />
